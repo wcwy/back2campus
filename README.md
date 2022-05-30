@@ -50,7 +50,7 @@
     <li>
       <a href="#getting-started">Getting Started</a>
       <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#pre-requisites">Prerequisites</a></li>
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
@@ -95,7 +95,7 @@ Back2Campus aim to serve as a navigation aider by providing additional features 
 This is an example of how you may give instructions on setting up your project locally.
 To get a local copy up and running follow these simple example steps.
 
-### Pre-requisite
+### Pre-requisites
 
 * Flutter
   + Follow the guide at https://docs.flutter.dev/get-started/install.
