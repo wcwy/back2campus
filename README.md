@@ -68,7 +68,13 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]]
+<div align="center">
+  
+  <a href="https://youtube.com/shorts/bE9oNFRL-_8">
+    <img src="images/screenshot.jpg" alt="Logo" width="285" height="585">
+  </a>
+  
+</div>
 
 For most NUS students and staff, navigating from blocks to blocks in NUS have always been difficult and not as straightforward as navigating on the road. There are also many times we found ourselves arrive at the correct block, but were unable to find the exact location of the classroom in the building.
 
@@ -189,5 +195,3 @@ Project Link: [https://github.com/wcwy/back2campus](https://github.com/wcwy/back
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 -->
-
-[product-screenshot]: images/screenshot.jpg
