@@ -16,11 +16,10 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <!--
+  
   <a href="https://github.com/wcwy/back2campus">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+    <img src="images/logo.png" alt="Logo" width="80" height="50">
   </a>
-  -->
 
 <h3 align="center">Back2Campus</h3>
 
@@ -30,7 +29,7 @@
     <a href="https://github.com/wcwy/back2campus/"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/wcwy/back2campus/">View Demo (Unavailable) </a>
+    <a href="https://youtube.com/shorts/bE9oNFRL-_8">View Demo</a>
     ·
     <a href="https://github.com/wcwy/back2campus/issues">Report Bug</a>
     ·
@@ -38,10 +37,7 @@
   </p>
 </div>
 
-
-
 <!-- TABLE OF CONTENTS -->
-<!--
 <details>
   <summary>Table of Contents</summary>
   <ol>
@@ -58,19 +54,21 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
+<!--
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
     <li><a href="#acknowledgments">Acknowledgments</a></li>
+-->
   </ol>
 </details>
--->
 
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
+
+[![Product Name Screen Shot][product-screenshot]]
 
 For most NUS students and staff, navigating from blocks to blocks in NUS have always been difficult and not as straightforward as navigating on the road. There are also many times we found ourselves arrive at the correct block, but were unable to find the exact location of the classroom in the building.
 
@@ -85,6 +83,7 @@ Back2Campus aim to serve as a navigation aider by providing additional features 
 * [Flutter](https://flutter.dev/)
 * [Supabase](https://supabase.com/)
 * [PostgreSQL](https://www.postgresql.org/)
+* [OneMap API](https://www.onemap.gov.sg/docs/)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -146,6 +145,7 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 <!-- ROADMAP -->
 ## Roadmap
 
+- [x] Email Authentication
 - [x] Location Display on Static Map
 - [ ] 3D Map Layout
 - [ ] Navigation Optimization
@@ -189,3 +189,5 @@ Project Link: [https://github.com/wcwy/back2campus](https://github.com/wcwy/back
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 -->
+
+[product-screenshot]: images/screenshot.jpg
