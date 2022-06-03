@@ -8,6 +8,7 @@ import 'package:back2campus/pages/login_page.dart';
 import 'package:back2campus/pages/splash_page.dart';
 import 'package:back2campus/pages/routing_page.dart';
 import 'package:back2campus/pages/signup_page.dart';
+import 'package:back2campus/pages/signin_page.dart';
 
 Future<void> main() async {
   // Supabase Initialization
@@ -31,31 +32,27 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: "NUS Map",
-      home: SplashPage(),
-    );
-    /*
     return MaterialApp(
       title: 'Back2Campus',
       theme: ThemeData.dark().copyWith(
         primaryColor: Colors.green,
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
+            primary: const Color(0xff003d7c),
             onPrimary: Colors.white,
-            primary: Colors.green,
+            shadowColor: Colors.blueGrey,
           ),
         ),
       ),
       initialRoute: '/',
       routes: <String, WidgetBuilder>{
         '/': (_) => const SplashPage(),
+        '/signup': (_) => const SignupPage(),
+        '/signin': (_) => const SigninPage(),
         '/login': (_) => const LoginPage(),
         '/account': (_) => const AccountPage(),
         '/routing': (_) => const RoutingPage(),
       },
     );
-
-     */
   }
 }

@@ -54,7 +54,9 @@ class _SplashPageState extends State<SplashPage> {
                             borderRadius: BorderRadius.circular(32.0)),
                         minimumSize: const Size(700, 40), //////// HERE
                       ),
-                      onPressed: (){},
+                      onPressed: (){
+                        Navigator.pushNamed(context, '/signup');
+                      },
                       child: Text('CREATE ACCOUNT'),
                     )
                 ),
@@ -68,7 +70,9 @@ class _SplashPageState extends State<SplashPage> {
                         borderRadius: BorderRadius.circular(32.0)),
                     minimumSize: const Size(700, 40), //////// HERE
                   ),
-                  onPressed: (){},
+                  onPressed: (){
+                    Navigator.pushNamed(context, '/signin');
+                  },
                   child: Text('SIGN IN'),
                 ),
               ],

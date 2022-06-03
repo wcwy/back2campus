@@ -10,8 +10,8 @@ class RoutingPage extends StatefulWidget {
   @override
   State<RoutingPage> createState() => _RoutingPageState();
 }
-
-class _RoutingPageState extends AuthRequiredState<RoutingPage> {
+// class _RoutingPageState extends AuthRequiredState<RoutingPage> { // can change to this in future for safer auth
+class _RoutingPageState extends State<RoutingPage> {
   Icon customIcon = const Icon(Icons.search);
   Widget customSearchBar = const Text('Locate NUS buildings');
   TextEditingController srcController = TextEditingController();
