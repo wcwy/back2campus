@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:supabase/supabase.dart';
+
 
 import 'package:back2campus/pages/account_page.dart';
 import 'package:back2campus/pages/login_page.dart';
 import 'package:back2campus/pages/splash_page.dart';
 import 'package:back2campus/pages/routing_page.dart';
+import 'package:back2campus/pages/signup_page.dart';
 
 Future<void> main() async {
   // Supabase Initialization
@@ -28,6 +31,11 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
+    return const MaterialApp(
+      title: "NUS Map",
+      home: SplashPage(),
+    );
+    /*
     return MaterialApp(
       title: 'Back2Campus',
       theme: ThemeData.dark().copyWith(
@@ -47,11 +55,7 @@ class _MyAppState extends State<MyApp> {
         '/routing': (_) => const RoutingPage(),
       },
     );
-    /*
-    return MaterialApp(
-      title: "NUS Map",
-      home: RoutingScreen(),
-    );
+
      */
   }
 }
