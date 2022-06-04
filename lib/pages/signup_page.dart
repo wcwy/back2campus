@@ -16,11 +16,15 @@ class _SignupPageState extends State<SignupPage> {
   TextEditingController passwordController = TextEditingController();
   TextEditingController password2Controller = TextEditingController();
 
-  Future<void> signup() async {
-    final res = await supabase.auth.signUp('example@email.com','example-password');
+  Future<void> _signUp() async {
+    final response = await supabase.auth.signUp(emailController.text, passwordController.text);
+    final error = response.error;
 
-    final user = res.data?.user;
-    final error = res.error;
+    if (error != null) {
+      context.showErrorSnackBar(message: error.message);
+    }else{
+      Navigator.pushNamed(context, '/signin');
+    }
   }
 
 
@@ -209,7 +213,9 @@ class _SignupPageState extends State<SignupPage> {
                             borderRadius: BorderRadius.circular(32.0)),
                         minimumSize: const Size(700, 40), //////// HERE
                       ),
-                      onPressed: (){},
+                      onPressed: (){
+                        _signUp();
+                      },
                       child: Text('CREATE ACCOUNT'),
                     ),
                   ),

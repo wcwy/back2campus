@@ -27,7 +27,10 @@ class _RoutingPageState extends State<RoutingPage> {
     final error = response.error;
     if (error != null) {
       context.showErrorSnackBar(message: error.message);
+    }else{
+      Navigator.pushNamed(context, '/');
     }
+
   }
 
   @override
@@ -140,7 +143,12 @@ class _RoutingPageState extends State<RoutingPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               customMap,
-              ElevatedButton(onPressed: _signOut, child: const Text('Sign Out')),
+              ElevatedButton(
+                onPressed: (){
+                    _signOut();
+                    },
+                child: const Text('Sign Out'),
+              ),
             ],
           ),
         ),

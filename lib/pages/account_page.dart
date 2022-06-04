@@ -3,6 +3,10 @@ import 'package:supabase/supabase.dart';
 import 'package:back2campus/components/auth_required_state.dart';
 import 'package:back2campus/utils/constants.dart';
 
+// THIS PAGE IS REDACTED. KEPT TEMPORARILY FOR FUTURE REFERENCES.
+// TO BE DELETED BEFORE DEPLOYMENT.
+
+/*
 class AccountPage extends StatefulWidget {
   const AccountPage({Key? key}) : super(key: key);
 
@@ -116,3 +120,4 @@ class _AccountPageState extends AuthRequiredState<AccountPage> {
     );
   }
 }
+*/

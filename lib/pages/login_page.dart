@@ -4,6 +4,10 @@ import 'package:supabase/supabase.dart';
 import 'package:back2campus/components/auth_state.dart';
 import 'package:back2campus/utils/constants.dart';
 
+// THIS PAGE IS REDACTED. KEPT TEMPORARILY FOR FUTURE REFERENCES.
+// TO BE DELETED BEFORE DEPLOYMENT.
+
+/*
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
 
@@ -73,3 +77,4 @@ class _LoginPageState extends AuthState<LoginPage> {
     );
   }
 }
+*/

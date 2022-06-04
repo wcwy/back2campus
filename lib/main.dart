@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:supabase/supabase.dart';
 
-
-import 'package:back2campus/pages/account_page.dart';
-import 'package:back2campus/pages/login_page.dart';
 import 'package:back2campus/pages/splash_page.dart';
 import 'package:back2campus/pages/routing_page.dart';
 import 'package:back2campus/pages/signup_page.dart';
@@ -49,8 +46,6 @@ class _MyAppState extends State<MyApp> {
         '/': (_) => const SplashPage(),
         '/signup': (_) => const SignupPage(),
         '/signin': (_) => const SigninPage(),
-        '/login': (_) => const LoginPage(),
-        '/account': (_) => const AccountPage(),
         '/routing': (_) => const RoutingPage(),
       },
     );
