@@ -143,6 +143,28 @@ class _RoutingPageState extends State<RoutingPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               customMap,
+              Container(
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    ElevatedButton(
+                      onPressed: (){
+                        Navigator.pushNamed(context, '/layout');
+                      },
+                      child: const Text('Internal Layout'),
+                    ),
+                    ElevatedButton(
+                      onPressed: (){
+                        Navigator.pushNamed(context, '/shared');
+                      },
+                      child: const Text('Shared Routes'),
+                    ),
+                    ],
+                ),
+              ),
+
               ElevatedButton(
                 onPressed: (){
                     _signOut();
