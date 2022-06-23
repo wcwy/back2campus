@@ -127,6 +127,7 @@ To get a local copy up and running follow these simple example steps.
 3. Update package dependencies
    ```sh
    flutter pub add supabase_flutter
+   flutter pub add image_picker
    flutter pub get
    ```
 4. Start the emulator/mobile device, and run the application from Android Studio.
