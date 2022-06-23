@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:back2campus/utils/constants.dart';
+import 'package:back2campus/pages/upload_layout.dart';
 
 class LayoutPage extends StatefulWidget {
   const LayoutPage({Key? key}) : super(key: key);
@@ -8,34 +10,94 @@ class LayoutPage extends StatefulWidget {
 }
 
 class _LayoutPageState extends State<LayoutPage> {
+  List layoutList = [];
+  Future<void> _retrieveLayouts() async {
+    var res = await supabase
+        .from('locations')
+        .select('location_id')
+        .eq('location_name', chosenDestination)
+        .execute();
+    if(res.hasError){
+      context.showErrorSnackBar(message: res.error!.message);
+    }else {
+      final location_id = res.data[0]['location_id'];
+      res = await supabase
+          .from('layouts')
+          .select('floor_level, layoutmap_url')
+          .eq('location_id', location_id)
+          .execute();
+      if(res.hasError){
+        context.showErrorSnackBar(message: res.error!.message);
+      }else {
+        setState(() {
+          layoutList = res.data;
+        });
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      //resizeToAvoidBottomInset: false,
       appBar: AppBar(
         toolbarHeight: 100,
-        title: Text("Internal Route"),
+        title: Text("Internal Layout ($chosenDestination)"),
         automaticallyImplyLeading: false,
         centerTitle: true,
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.pushNamed(context, '/routing');
+            },
+            icon: const Icon(Icons.home),
+          )
+        ],
       ),
-      body: Container(
-        width: double.infinity,
-        height: double.infinity,
-        decoration: const BoxDecoration(
-            color: Colors.blueGrey
-        ),
-        child: Align(
-          alignment: Alignment.center,
+      body: SingleChildScrollView(
+        child: Container(
+          decoration: const BoxDecoration(
+              color: Colors.blueGrey
+          ),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Image.network("https://developers.onemap.sg/commonapi/staticmap/getStaticImage?layerchosen=original&lat=1.2950855&lng=103.7739801&zoom=17&height=512&width=512&polygons=&lines=&points=[1.2950855,103.7739801,%22175,50,0%22,%22S%22]&color=&fillColor=")
+            children: [
+              ListView.separated(
+                  shrinkWrap: true,
+                  scrollDirection: Axis.vertical,
+                  padding: EdgeInsets.zero,
+                  physics:NeverScrollableScrollPhysics(),
+
+                  itemCount: layoutList.length,
+                  itemBuilder: (context, index){
+                    return Column(
+                      children: [
+                        Container(
+                          height: 10,
+                        ),
+                        Text(layoutList[index]['floor_level']),
+                        Image.network(supabase.storage.from('layoutmaps').getPublicUrl(layoutList[index]['layoutmap_url']).data!),
+
+                      ],
+                    );
+
+                  },
+                  separatorBuilder: (context, index){
+                    return Divider(
+                      color: Colors.blueGrey,
+                    );
+                  }
+              ),
+              UploadLayout(),
             ],
           ),
         ),
       ),
     );
+  }
+
+  @override
+  void initState() {
+    _retrieveLayouts();
+    super.initState();
   }
 }

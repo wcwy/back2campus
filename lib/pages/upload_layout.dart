@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:back2campus/utils/constants.dart';
@@ -12,29 +13,77 @@ class UploadLayout extends StatefulWidget {
 }
 
 class _UploadLayoutState extends State<UploadLayout> {
+  TextEditingController descriptionController = TextEditingController();
   final ImagePicker _picker = ImagePicker();
   File? imageFile;
 
   @override
   Widget build(BuildContext context) {
+
     return Container(
         child: Container(
-          width: double.infinity,
-          height: double.infinity,
-          decoration: const BoxDecoration(
-              color: Colors.blueGrey
-          ),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              const Text(
-                "No image is available for this building currently.\nAssist to upload one:",
+              Container(
+                height: 40.0,
+              ),
+              Text(
+                "You may assist to upload $chosenDestination's internal layout below.\n\nAcceptable layouts are:\n1) Floor Plan\n2) 3D Building Model",
                 style: TextStyle(
-                    color: Colors.black,
+                    color: Colors.white,
                     fontFamily: 'Open Sans',
                     fontSize: 15
                 ),
               ),
+              Container(
+                height: 40.0,
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width*0.95,
+                child: TextField(
+                  controller: descriptionController,
+                  decoration: const InputDecoration(
+                    labelText: 'Enter the Layout Description (Mandatory)',
+                    labelStyle: TextStyle(
+                      color: Colors.white,
+                    ),
+                    hintText: 'Eg.: Basement/Level 1/3D Model',
+                    hintStyle: TextStyle(
+                      color: Color(0xFFB3B1B1),
+                      fontSize: 18,
+                    ),
+                    // Style when clicked
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(4)),
+                      borderSide: BorderSide(width: 1,color: Color(0xFFB3B1B1)),
+                    ),
+                    // Style when not clicked
+                    enabledBorder: UnderlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(4)),
+                      borderSide: BorderSide(width: 1,color: Colors.green),
+                    ),
+                    // Default style (same as above)
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(4)),
+                        borderSide: BorderSide(width: 1,)
+                    ),
+                    // Style when error
+                    errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(4)),
+                        borderSide: BorderSide(width: 1,color: Colors.black)
+                    ),
+                    // Style when error and clicked
+                    focusedErrorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(4)),
+                        borderSide: BorderSide(width: 1,color: Colors.yellowAccent)
+                    ),
+                  ),
+                  style: const TextStyle(
+                    color: Color(0xff003d7c),
+                  ),
+                ),
+              ),
+
               Container(
                 height: 40.0,
               ),
@@ -48,17 +97,29 @@ class _UploadLayoutState extends State<UploadLayout> {
                 child: Text("PICK FROM GALLERY"),
               ),
               Container(
-                height: 40.0,
+                height: 10.0,
               ),
               ElevatedButton(
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.lightGreenAccent),
+                  backgroundColor: MaterialStateProperty.all(Colors.greenAccent),
                 ),
                 onPressed: () {
                   _getFromCamera();
                 },
                 child: Text("PICK FROM CAMERA"),
-              )
+              ),
+              Container(
+                height: 40.0,
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  _uploadImage();
+                },
+                child: Text("SUBMIT"),
+              ),
+              Container(
+                height: 40.0,
+              ),
             ],
           ),
         )
@@ -75,7 +136,6 @@ class _UploadLayoutState extends State<UploadLayout> {
       setState(() {
         imageFile = File(image.path);
       });
-      _uploadImage();
     }
   }
 
@@ -90,27 +150,50 @@ class _UploadLayoutState extends State<UploadLayout> {
       setState(() {
         imageFile = File(image.path);
       });
-      _uploadImage();
     }
   }
 
   /// Upload photo to database
   _uploadImage() async {
-    final bytes = await imageFile!.readAsBytes();
-    final fileExt = imageFile!.path.split('.').last;
-    final fileName = '$chosenDestination.$fileExt';
-    final filePath = fileName;
-    final response = await supabase.storage.from('layoutmaps').uploadBinary(filePath, bytes);
-
-    final error = response.error;
-    setState(() {
-      imageFile = null;
-    });
-    if (error != null) {
-      context.showErrorSnackBar(message: error.message);
-    } else {
-      context.showSnackBar(message: 'Successfully uploaded layout!');
-      Navigator.pushNamed(context, '/routing');
+    if (descriptionController.text == "" || imageFile == null){
+      context.showErrorSnackBar(message: "Please upload a photo and complete the description field");
+    }else{
+      final bytes = await imageFile!.readAsBytes();
+      final fileExt = imageFile!.path.split('.').last;
+      final description = descriptionController.text;
+      final fileName = '$chosenDestination\_$description.$fileExt';
+      final filePath = fileName;
+      final response = await supabase.storage.from('layoutmaps').uploadBinary(filePath, bytes);
+      final error = response.error;
+      setState(() {
+        imageFile = null;
+      });
+      if (error != null) {
+        context.showErrorSnackBar(message: error.message);
+      }else{
+        final res = await supabase
+            .from('locations')
+            .select('location_id')
+            .eq('location_name', chosenDestination)
+            .execute();
+        if(res.hasError){
+          context.showErrorSnackBar(message: res.error!.message);
+        }else{
+          final location_id = res.data[0]['location_id'];
+          final res2 = await supabase
+              .from('layouts')
+              .insert([
+            {'location_id': location_id, 'floor_level': descriptionController.text, 'layoutmap_url': filePath}
+          ]).execute();
+          if(res2.hasError){
+            context.showErrorSnackBar(message: res2.error!.message);
+          }else{
+            context.showSnackBar(message: 'Successfully uploaded layout!');
+            Navigator.pushNamed(context, '/routing');
+          }
+        }
+      }
     }
+
   }
 }

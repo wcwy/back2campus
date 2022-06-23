@@ -36,6 +36,7 @@ class _RoutingPageState extends State<RoutingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         toolbarHeight: 100,
         title: customSearchBar,
@@ -155,6 +156,9 @@ class _RoutingPageState extends State<RoutingPage> {
                         Navigator.pushNamed(context, '/layout');
                       },
                       child: const Text('Internal Layout'),
+                    ),
+                    Container(
+                      width: 20,
                     ),
                     ElevatedButton(
                       onPressed: (){
