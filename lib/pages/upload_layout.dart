@@ -125,7 +125,7 @@ class _UploadLayoutState extends State<UploadLayout> {
         )
     );
   }
-  /// Get from gallery
+  /// Get image from gallery
   _getFromGallery() async {
     final XFile? image = await _picker.pickImage(
       source: ImageSource.gallery,
@@ -139,7 +139,7 @@ class _UploadLayoutState extends State<UploadLayout> {
     }
   }
 
-  /// Get from Camera
+  /// Get image from Camera
   _getFromCamera() async {
     final XFile? image = await _picker.pickImage(
       source: ImageSource.camera,
@@ -155,6 +155,7 @@ class _UploadLayoutState extends State<UploadLayout> {
 
   /// Upload photo to database
   _uploadImage() async {
+    // Check that both description and image are filled by user
     if (descriptionController.text == "" || imageFile == null){
       context.showErrorSnackBar(message: "Please upload a photo and complete the description field");
     }else{
@@ -163,14 +164,17 @@ class _UploadLayoutState extends State<UploadLayout> {
       final description = descriptionController.text;
       final fileName = '$chosenDestination\_$description.$fileExt';
       final filePath = fileName;
+      // Upload the image chosen to supabase storage
       final response = await supabase.storage.from('layoutmaps').uploadBinary(filePath, bytes);
       final error = response.error;
       setState(() {
+        // Set variable to null to prevent user from submitting same image
         imageFile = null;
       });
       if (error != null) {
         context.showErrorSnackBar(message: error.message);
       }else{
+        // Find location id of the destination
         final res = await supabase
             .from('locations')
             .select('location_id')
@@ -179,7 +183,9 @@ class _UploadLayoutState extends State<UploadLayout> {
         if(res.hasError){
           context.showErrorSnackBar(message: res.error!.message);
         }else{
+          // Store the location id of destination
           final location_id = res.data[0]['location_id'];
+          // Insert the description and the filename stored to database (layouts table)
           final res2 = await supabase
               .from('layouts')
               .insert([

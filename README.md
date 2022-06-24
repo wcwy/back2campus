@@ -128,6 +128,7 @@ To get a local copy up and running follow these simple example steps.
    ```sh
    flutter pub add supabase_flutter
    flutter pub add image_picker
+   flutter pub add flutter_quill
    flutter pub get
    ```
 4. Start the emulator/mobile device, and run the application from Android Studio.
@@ -154,10 +155,13 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 
 - [x] Email Authentication
 - [x] Location Display on Static Map
-- [ ] 3D Map Layout
-- [ ] Navigation Optimization
-    - [ ] Route Sharing Forum
-    - [ ] Nearby Suggestions
+- [x] Building Internal Layout
+    - [x] Layout Listing
+    - [x] Layout Uploading by Users
+- [ ] Route Sharing Forum
+    - [ ] Shared Routes Listing
+    - [ ] Single Shared Route Viewing
+    - [x] Route Sharing by Users
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 

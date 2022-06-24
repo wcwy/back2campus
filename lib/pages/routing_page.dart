@@ -63,6 +63,7 @@ class _RoutingPageState extends State<RoutingPage> {
                           var destlongt = mapcoordinates.longt[destinationlocation];
                           if(srclat!=null && destlat!=null && srclongt!=null && destlongt!=null){
                             var imglink = "https://developers.onemap.sg/commonapi/staticmap/getStaticImage?layerchosen=original&lat=${srclat}&lng=${srclongt}&zoom=17&height=512&width=512&polygons=&lines=&points=[${destlat},${destlongt},%22175,50,0%22,%22D%22]|[${srclat},${srclongt},%220,155,0%22,%22S%22]&color=&fillColor=";
+                            chosenSource = srcController.text;
                             chosenDestination = destController.text;
                             customMap = Image.network(imglink);
                           }else{
@@ -162,7 +163,7 @@ class _RoutingPageState extends State<RoutingPage> {
                     ),
                     ElevatedButton(
                       onPressed: (){
-                        Navigator.pushNamed(context, '/shared');
+                        Navigator.pushNamed(context, '/writeroute');
                       },
                       child: const Text('Shared Routes'),
                     ),

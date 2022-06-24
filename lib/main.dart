@@ -8,6 +8,7 @@ import 'package:back2campus/pages/signup_page.dart';
 import 'package:back2campus/pages/signin_page.dart';
 import 'package:back2campus/pages/layout_page.dart';
 import 'package:back2campus/pages/shared_page.dart';
+import 'package:back2campus/pages/writeroute_page.dart';
 
 Future<void> main() async {
   // Supabase Initialization
@@ -51,6 +52,7 @@ class _MyAppState extends State<MyApp> {
         '/routing': (_) => const RoutingPage(),
         '/layout': (_) => const LayoutPage(),
         '/shared': (_) => const SharedPage(),
+        '/writeroute': (_) => const WriteroutePage(),
       },
     );
   }

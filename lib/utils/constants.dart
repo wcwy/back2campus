@@ -3,6 +3,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 final supabase = Supabase.instance.client;
 var back2campususer = null;
+var chosenSource = "COM1";
 var chosenDestination = "COM2";
 
 extension ShowSnackBar on BuildContext {

@@ -45,14 +45,12 @@ class _LayoutPageState extends State<LayoutPage> {
         title: Text("Internal Layout ($chosenDestination)"),
         automaticallyImplyLeading: false,
         centerTitle: true,
-        actions: [
-          IconButton(
+        leading: IconButton(
             onPressed: () {
               Navigator.pushNamed(context, '/routing');
             },
             icon: const Icon(Icons.home),
           )
-        ],
       ),
       body: SingleChildScrollView(
         child: Container(
