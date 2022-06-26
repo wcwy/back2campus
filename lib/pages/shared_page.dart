@@ -26,7 +26,7 @@ class _SharedPageState extends State<SharedPage> {
   // Function 1
   @override
   void initState() {
-    _retrieveLayouts(); // call _retrieveLayouts()
+    _retrieveSharedRoute(); // call _retrieveSharedRoute()
     super.initState();
   }
 
@@ -97,7 +97,7 @@ class _SharedPageState extends State<SharedPage> {
   }
 
   // Function 3
-  Future<void> _retrieveLayouts() async {
+  Future<void> _retrieveSharedRoute() async {
     /*
       In this function, we need to find how many routes are being shared for the $chosenSource and $chosenDestination
       Then, we will update the list of routes found from database to variable "routeList"
@@ -146,14 +146,41 @@ class _SharedPageState extends State<SharedPage> {
       destination_id = res.data[0]['location_id']; // Set destination_id to the location id found
     }
 
-    // TODO: lookup "locations" table to update source_id
-    // TODO: lookup "routes" table to find all the routes with source_id and destination_id
+    var src = await supabase
+        .from('locations') // SELECT FROM TABLE NAME 'locations'
+        .select('location_id, latitude') // TO FIND THE COLUMNS 'location_id' and 'latitude'
+        .eq('location_name', chosenSource) // WHICH THE COLUMN 'location_name' MATCHES chosenDestination
+        .execute(); // EXECUTE THIS QUERY
 
-    /* // THIS CAN BE USED TO SET THE ROUTE LIST AFTER THE ROUTES ARE FOUND FROM DATABASE
+    if(src.hasError){ // CHECK IF THERE IS ANY ERROR
+      context.showErrorSnackBar(message: src.error!.message); // PRINT ERROR MSG ON APP
+    }else {
+      /*
+        res.data is a list of dictionaries. Each row returned is a dictionary. In the dictionary, column name is the key, data stored is the value.
+       */
+      /*print(res.data); // This will be printed in the RUN console.
+      print(res.data[0]); // If multiple rows are found, it will be stored in res.data[i]. Since location is unique, it's at [0]
+      print(res.data[0]['location_id']); // This will give the location_id field
+      print(src.data[0]['latitude']); // This will give the latitude field */
+      source_id = src.data[0]['location_id']; // Set destination_id to the location id found
+    }
+
+    src = await supabase
+        .from('routes') // SELECT FROM TABLE NAME 'locations'
+        .select('route_description') // TO FIND THE COLUMNS 'location_id' and 'latitude'
+        .eq("src_location_id", source_id) // WHICH THE COLUMN 'location_name' MATCHES chosenDestination
+        .eq("end_location_id", destination_id)
+        .execute(); // EXECUTE THIS QUERY
+
+    if(src.hasError){ // CHECK IF THERE IS ANY ERROR
+      context.showErrorSnackBar(message: src.error!.message); // PRINT ERROR MSG ON APP
+    }else {
+      print(src.data[0]['route_description']);
+    }
+
     setState(() {
-      routeList = res.data;
+      routeList = src.data;
     });
-     */
   }
 }
 

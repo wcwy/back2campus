@@ -163,7 +163,7 @@ class _RoutingPageState extends State<RoutingPage> {
                     ),
                     ElevatedButton(
                       onPressed: (){
-                        Navigator.pushNamed(context, '/writeroute');
+                        Navigator.pushNamed(context, '/shared');
                       },
                       child: const Text('Shared Routes'),
                     ),
