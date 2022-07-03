@@ -22,7 +22,40 @@ class _SigninPageState extends State<SigninPage> {
     if (error != null) {
       context.showErrorSnackBar(message: error.message);
     }else{
-      Navigator.pushNamed(context, '/routing');
+      // Check if the profile table exists for this user (For backwards compatibility of users registered before profile was implemented)
+      var res = await supabase
+          .from('profiles')
+          .select('id, username')
+          .eq('id', supabase.auth.currentUser!.id)
+          .execute();
+
+      if (res.hasError) {
+        context.showErrorSnackBar(message: res.error!.message);
+      } else {
+        if(res.data.toString() == "[]"){
+          // No record in profile table
+          // Insert profile into database (profiles table)
+          var res = await supabase
+              .from('profiles')
+              .insert([
+            {
+              'id': supabase.auth.currentUser!.id,
+              'updated_at': DateTime.now().toIso8601String(),
+              'username': "Some beta user",
+              'avatar_url': "default.jpg",
+            }
+          ]).execute();
+          if(res.hasError){
+            context.showErrorSnackBar(message: res.error!.message);
+          }else{
+            Navigator.pushNamed(context, '/routing');
+          }
+        }else {
+          final user_name = res.data[0]['username'];
+          context.showSnackBar(message: 'Welcome $user_name!');
+          Navigator.pushNamed(context, '/routing');
+        }
+      }
     }
   }
 
