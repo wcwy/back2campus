@@ -102,11 +102,21 @@ class _RoutingPageState extends State<RoutingPage> {
         title: const Text('Locate NUS buildings'),
         automaticallyImplyLeading: false,
         actions: [
-          IconButton(
-            onPressed: (){
-              // TODO: PROFILE PAGE
+          GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(context, '/profile');
             },
-            icon: const Icon(Icons.account_circle_sharp),
+            child:  CircleAvatar(
+              radius: 25.0,
+              backgroundImage: ResizeImage(
+                NetworkImage(profilepicurl),
+                height: 137,
+                width: 137
+              ),
+            ),
+          ),
+          Container(
+            width: 20
           )
         ],
         centerTitle: true,

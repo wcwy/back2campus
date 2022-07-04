@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:supabase/supabase.dart';
 
 import 'package:back2campus/pages/splash_page.dart';
 import 'package:back2campus/pages/routing_page.dart';
@@ -9,6 +8,7 @@ import 'package:back2campus/pages/signin_page.dart';
 import 'package:back2campus/pages/layout_page.dart';
 import 'package:back2campus/pages/shared_page.dart';
 import 'package:back2campus/pages/writeroute_page.dart';
+import 'package:back2campus/pages/profile_page.dart';
 
 Future<void> main() async {
   // Supabase Initialization
@@ -53,6 +53,7 @@ class _MyAppState extends State<MyApp> {
         '/layout': (_) => const LayoutPage(),
         '/shared': (_) => const SharedPage(),
         '/writeroute': (_) => const WriteroutePage(),
+        '/profile': (_) => const ProfilePage(),
       },
     );
   }

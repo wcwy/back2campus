@@ -25,7 +25,7 @@ class _SigninPageState extends State<SigninPage> {
       // Check if the profile table exists for this user (For backwards compatibility of users registered before profile was implemented)
       var res = await supabase
           .from('profiles')
-          .select('id, username')
+          .select('id, username, avatar_url')
           .eq('id', supabase.auth.currentUser!.id)
           .execute();
 
@@ -51,6 +51,7 @@ class _SigninPageState extends State<SigninPage> {
             Navigator.pushNamed(context, '/routing');
           }
         }else {
+          profilepicurl = supabase.storage.from('layoutmaps').getPublicUrl(res.data[0]['avatar_url']).data!; // Set profile pic url on sign in
           final user_name = res.data[0]['username'];
           context.showSnackBar(message: 'Welcome $user_name!');
           Navigator.pushNamed(context, '/routing');
