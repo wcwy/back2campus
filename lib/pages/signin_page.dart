@@ -51,7 +51,7 @@ class _SigninPageState extends State<SigninPage> {
             Navigator.pushNamed(context, '/routing');
           }
         }else {
-          profilepicurl = supabase.storage.from('layoutmaps').getPublicUrl(res.data[0]['avatar_url']).data!; // Set profile pic url on sign in
+          profilepicurl = supabase.storage.from('avatars').getPublicUrl(res.data[0]['avatar_url']).data!; // Set profile pic url on sign in
           final user_name = res.data[0]['username'];
           context.showSnackBar(message: 'Welcome $user_name!');
           Navigator.pushNamed(context, '/routing');
