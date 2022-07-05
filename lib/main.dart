@@ -9,6 +9,7 @@ import 'package:back2campus/pages/layout_page.dart';
 import 'package:back2campus/pages/shared_page.dart';
 import 'package:back2campus/pages/writeroute_page.dart';
 import 'package:back2campus/pages/profile_page.dart';
+import 'package:back2campus/pages/editprofile_page.dart';
 
 Future<void> main() async {
   // Supabase Initialization
@@ -54,6 +55,7 @@ class _MyAppState extends State<MyApp> {
         '/shared': (_) => const SharedPage(),
         '/writeroute': (_) => const WriteroutePage(),
         '/profile': (_) => const ProfilePage(),
+        '/editprofile': (_) => const EditprofilePage(),
       },
     );
   }

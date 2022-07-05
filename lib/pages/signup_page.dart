@@ -101,6 +101,9 @@ class _SignupPageState extends State<SignupPage> {
           response = await supabase.auth.signIn(email: emailController.text, password: passwordController.text);
           back2campususer = response.data?.user;
           error = response.error;
+          setState(() {
+            profilepicurl = supabase.storage.from('avatars').getPublicUrl("default.jpg").data!; // Set profile pic url on sign in
+          });
           if (error != null) {
             context.showErrorSnackBar(message: error.message);
           }else{

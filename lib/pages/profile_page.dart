@@ -37,9 +37,8 @@ class _ProfilePageState extends State<ProfilePage> {
         username = res.data[0]['username'];
         if(res.data[0]['quote'] == null){
           //quote = "For wakanda";
-          quote = "Chaos isn't a pit. Chaos is a ladder. Many who try to climb it fail and never get to try it again. The fall breaks them. And some are given a chance to climb. They refuse. They cling to the realm or the gods or love. Illusions. Only the ladder is real. The climb is all there is.";
+          quote = "[Default] Chaos isn't a pit. Chaos is a ladder. Many who try to climb it fail and never get to try it again. The fall breaks them. And some are given a chance to climb. They refuse. They cling to the realm or the gods or love. Illusions. Only the ladder is real. The climb is all there is.";
         }else{
-          print(res.data[0]['quote']);
           quote = res.data[0]['quote'];
         }
       });
@@ -117,7 +116,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   children: <Widget>[
                     ElevatedButton(
                       onPressed: (){
-                        // TODO: EDIT PROFILE PAGE
+                        Navigator.pushNamed(context, '/editprofile');
                       },
                       child: const Text('Edit Profile'),
                     ),

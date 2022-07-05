@@ -135,6 +135,7 @@ class _UploadLayoutState extends State<UploadLayout> {
     if (image != null) {
       setState(() {
         imageFile = File(image.path);
+        context.showSnackBar(message: 'Image selected.');
       });
     }
   }
@@ -149,6 +150,7 @@ class _UploadLayoutState extends State<UploadLayout> {
     if (image != null) {
       setState(() {
         imageFile = File(image.path);
+        context.showSnackBar(message: 'Image selected.');
       });
     }
   }
