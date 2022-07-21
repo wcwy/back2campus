@@ -68,9 +68,9 @@ class _EditprofilePageState extends State<EditprofilePage> {
           centerTitle: true,
           leading: IconButton(
             onPressed: () {
-              Navigator.pushNamed(context, '/routing');
+              Navigator.pushNamed(context, '/profile');
             },
-            icon: const Icon(Icons.home),
+            icon: const Icon(Icons.arrow_back),
           ),
         actions: [
           IconButton(

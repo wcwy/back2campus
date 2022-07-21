@@ -209,7 +209,7 @@ class _RoutingPageState extends State<RoutingPage> {
                   children: <Widget>[
                     ElevatedButton(
                       onPressed: (){
-                        Navigator.pushNamed(context, '/writeroute');
+                        Navigator.pushNamed(context, '/layout');
                       },
                       child: const Text('Internal Layout'),
                     ),
@@ -218,7 +218,7 @@ class _RoutingPageState extends State<RoutingPage> {
                     ),
                     ElevatedButton(
                       onPressed: (){
-                        Navigator.pushNamed(context, '/viewroute');
+                        Navigator.pushNamed(context, '/shared');
                       },
                       child: const Text('Shared Routes'),
                     ),

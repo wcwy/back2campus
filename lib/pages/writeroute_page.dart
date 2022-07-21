@@ -24,9 +24,9 @@ class _WriteroutePageState extends State<WriteroutePage> {
         // Home button
         leading: IconButton(
           onPressed: () {
-            Navigator.pushNamed(context, '/routing');
+            Navigator.pushNamed(context, '/shared');
           },
-          icon: const Icon(Icons.home),
+          icon: const Icon(Icons.arrow_back),
         ),
         centerTitle: true,
         // Submit button
@@ -35,7 +35,7 @@ class _WriteroutePageState extends State<WriteroutePage> {
             onPressed: () {
               upload_route();
             },
-            icon: const Icon(Icons.share_sharp),
+            icon: const Icon(Icons.send_sharp),
           )
         ],
       ),

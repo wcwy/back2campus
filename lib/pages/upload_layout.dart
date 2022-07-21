@@ -32,8 +32,9 @@ class _UploadLayoutState extends State<UploadLayout> {
                 style: TextStyle(
                     color: Colors.white,
                     fontFamily: 'Open Sans',
-                    fontSize: 15
+                    fontSize: 15,
                 ),
+                textAlign: TextAlign.center,
               ),
               Container(
                 height: 40.0,
