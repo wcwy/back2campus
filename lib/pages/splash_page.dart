@@ -33,7 +33,7 @@ class _SplashPageState extends State<SplashPage> {
                         ),
                       )
                   ),
-                  Image.asset('images/logo.png'),
+                  Image.asset('assets/images/logo.png'),
                   const Text(
                     "An easier navigation around NUS",
                     style: TextStyle(

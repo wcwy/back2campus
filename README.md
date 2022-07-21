@@ -71,7 +71,7 @@
 <div align="center">
   
   <a href="https://youtube.com/shorts/bE9oNFRL-_8">
-    <img src="images/screenshot.jpg" alt="Logo" width="285" height="585">
+    <img src="assets/images/demo.jpg" alt="Logo" width="1150" height="585">
   </a>
   
 </div>
@@ -158,10 +158,13 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 - [x] Building Internal Layout
     - [x] Layout Listing
     - [x] Layout Uploading by Users
-- [ ] Route Sharing Forum
-    - [ ] Shared Routes Listing
-    - [ ] Single Shared Route Viewing
+- [x] Route Sharing Area
+    - [x] Shared Routes Listing
+    - [x] Single Shared Route Viewing
     - [x] Route Sharing by Users
+- [x] User Profile
+    - [x] Update Profile Picture
+    - [x] Update Quote
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 

@@ -7,7 +7,7 @@ var chosenSource = "COM1";
 var chosenDestination = "COM2";
 var profilepicurl = "https://rlemxzljabcaylnhetcv.supabase.co/storage/v1/object/public/avatars/default.jpg";
 
-var routeselected = "db9be72a-5fe1-44fd-b46c-ec72035b3109"; // storing route_id used for viewroute_page
+var routeselected = "c39b7c37-6d1c-4598-9420-f006955d6f65"; // storing route_id used for viewroute_page
 
 extension ShowSnackBar on BuildContext {
   void showSnackBar({

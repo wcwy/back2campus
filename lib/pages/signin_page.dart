@@ -88,7 +88,7 @@ class _SigninPageState extends State<SigninPage> {
                       ),
                     ),
                   ),
-                  Image.asset('images/logo.png'),
+                  Image.asset('assets/images/logo.png'),
                   const Text(
                     "Welcome back",
                     style: TextStyle(
