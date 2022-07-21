@@ -40,8 +40,7 @@ class _WriteroutePageState extends State<WriteroutePage> {
         ],
       ),
       body: Container(
-            decoration: const BoxDecoration(
-            ),
+        //color: Colors.white,
             child: Column(
               children: [
                 Container(
@@ -104,7 +103,9 @@ class _WriteroutePageState extends State<WriteroutePage> {
                 flutter_quill.QuillToolbar.basic(controller: _controller),
                 Expanded(
                   child: Container(
-                    color: Colors.blueGrey,
+                    alignment: Alignment.center,
+                    width: MediaQuery.of(context).size.width * 0.95,
+                    color: Colors.white38,
                     child: flutter_quill.QuillEditor.basic(
                       controller: _controller,
                       readOnly: false, // true for view only mode

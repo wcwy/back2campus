@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-
 import 'package:back2campus/pages/splash_page.dart';
-import 'package:back2campus/pages/routing_page.dart';
 import 'package:back2campus/pages/signup_page.dart';
 import 'package:back2campus/pages/signin_page.dart';
+import 'package:back2campus/pages/profile_page.dart';
+import 'package:back2campus/pages/editprofile_page.dart';
+import 'package:back2campus/pages/routing_page.dart';
 import 'package:back2campus/pages/layout_page.dart';
 import 'package:back2campus/pages/shared_page.dart';
 import 'package:back2campus/pages/writeroute_page.dart';
-import 'package:back2campus/pages/profile_page.dart';
-import 'package:back2campus/pages/editprofile_page.dart';
+import 'package:back2campus/pages/viewroute_page.dart';
 
 Future<void> main() async {
   // Supabase Initialization
@@ -53,6 +53,7 @@ class _MyAppState extends State<MyApp> {
         '/routing': (_) => const RoutingPage(),
         '/layout': (_) => const LayoutPage(),
         '/shared': (_) => const SharedPage(),
+        '/viewroute': (_) => const ViewroutePage(),
         '/writeroute': (_) => const WriteroutePage(),
         '/profile': (_) => const ProfilePage(),
         '/editprofile': (_) => const EditprofilePage(),

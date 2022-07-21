@@ -55,16 +55,6 @@ class _RoutingPageState extends State<RoutingPage> {
     super.initState();
   }
 
-  Future<void> _signOut() async {
-    final response = await supabase.auth.signOut();
-    final error = response.error;
-    if (error != null) {
-      context.showErrorSnackBar(message: error.message);
-    }else{
-      Navigator.pushNamed(context, '/');
-    }
-  }
-
   // Call OneMap API with the latitude and longtitude of the two user selected locations
   // and update the customMap to the image received from OneMap API
   Future<void> _showMap() async {
@@ -234,13 +224,6 @@ class _RoutingPageState extends State<RoutingPage> {
                     ),
                     ],
                 ),
-              ),
-
-              ElevatedButton(
-                onPressed: (){
-                    _signOut();
-                    },
-                child: const Text('Sign Out'),
               ),
             ],
           ),
