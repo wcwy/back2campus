@@ -18,7 +18,7 @@
 <div align="center">
   
   <a href="https://github.com/wcwy/back2campus">
-    <img src="images/logo.png" alt="Logo" width="80" height="50">
+    <img src="assets/images/logo.png" alt="Logo" width="80" height="50">
   </a>
 
 <h3 align="center">Back2Campus</h3>
@@ -71,7 +71,7 @@
 <div align="center">
   
   <a href="https://youtube.com/shorts/bE9oNFRL-_8">
-    <img src="assets/images/demo.jpg" alt="Logo" width="1150" height="585">
+    <img src="assets/images/demo.png" alt="Logo" width="1150" height="585">
   </a>
   
 </div>
