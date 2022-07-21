@@ -1,0 +1,154 @@
+-- Create a table for public "profiles"
+create table profiles (
+  id uuid references auth.users not null,
+  updated_at timestamp with time zone,
+  username text unique,
+  avatar_url text,
+  website text,
+
+  primary key (id),
+  unique(username),
+  constraint username_length check (char_length(username) >= 3)
+);
+
+alter table profiles enable row level security;
+
+create policy "Public profiles are viewable by everyone."
+  on profiles for select
+  using ( true );
+
+create policy "Users can insert their own profile."
+  on profiles for insert
+  with check ( auth.uid() = id );
+
+create policy "Users can update own profile."
+  on profiles for update
+  using ( auth.uid() = id );
+
+alter table profiles
+  RENAME COLUMN website TO quote;
+
+alter table profiles 
+drop constraint profiles_id_fkey,
+add constraint profiles_id_fkey
+   foreign key (id)
+   references auth.users(id)
+   on delete cascade;
+
+-- Create a table for public "locations"
+create table locations (
+  location_id uuid not null,
+  location_name text not null,
+  latitude text not null,
+  longtitude text not null,
+
+  primary key (location_id)
+);
+
+-- Create a table for public "routes"
+create table routes (
+  route_id uuid not null,
+  user_id uuid references auth.users not null,
+  src_location_id uuid references locations not null,
+  end_location_id uuid references locations not null,
+  route_description text not null,
+  route_content text not null,
+  last_edited_time timestamp with time zone not null,
+
+  primary key (route_id)
+);
+
+-- Create a table for public "layouts"
+create table layouts(
+  location_id uuid not null references locations,
+  floor_level text not null,
+  layoutmap_url text not null,
+
+  primary key (location_id, floor_level)
+);
+
+-- Set up Realtime!
+begin;
+  drop publication if exists supabase_realtime;
+  create publication supabase_realtime;
+commit;
+alter publication supabase_realtime add table profiles;
+alter publication supabase_realtime add table locations;
+alter publication supabase_realtime add table routes;
+alter publication supabase_realtime add table layouts;
+
+-- Set up Storage!
+insert into storage.buckets (id, name, public)
+values ('avatars', 'avatars', true);
+
+create policy "Anyone can select an avatar."
+  on storage.objects for select
+  using ( bucket_id = 'avatars' );
+
+create policy "Anyone can upload an avatar."
+  on storage.objects for insert
+  with check ( bucket_id = 'avatars' );
+
+create policy "Anyone can update an avatar."
+  on storage.objects for update
+  with check ( bucket_id = 'avatars' );
+
+create policy "Anyone can delete an avatar."
+  on storage.objects for delete
+  using ( bucket_id = 'avatars' );
+
+insert into storage.buckets (id, name, public)
+values ('layoutmaps', 'layoutmaps', true);
+
+create policy "Anyone can upload a layout."
+  on storage.objects for insert
+  with check ( bucket_id = 'layoutmaps' );
+
+-- change fk policy on storage.objects table to remove when user is deleted from auth.users
+alter table storage.objects 
+drop constraint objects_owner_fkey,
+add constraint objects_owner_fkey
+   foreign key (owner)
+   references auth.users(id)
+   on delete cascade;
+
+
+alter table storage.objects disable row level security;
+
+-- Set default uuid value for locations and routes table
+alter table locations alter location_id set default uuid_generate_v4();
+alter table routes alter route_id set default uuid_generate_v4();
+
+-- Populate the database with map coordinates
+insert into locations(location_name, latitude, longtitude) values
+('AS2', '1.2952574921349551', '103.77103933381257'),
+('AS3', '1.2951364982214477', '103.77056197529532'),
+('AS4', '1.294642138104982', '103.77181046008434'),
+('AS5', '1.293905685900883', '103.7717305811046'),
+('AS6', '1.2955943424301106', '103.77319692672953'),
+('AS7', '1.2942512908547779', '103.77100180129216'),
+('BIZ', '1.2926195457953797', '103.77421832822583'),
+('BIZ2', '1.29339516118411', '103.77511901198815'),
+('CDE', '1.3001705530586447', '103.77070429955232'),
+('CELC', '1.2969789470005055', '103.77144986062696'),
+('CLB', '1.2964996612476685', '103.7729593124553'),
+('COM1', '1.295410541902768', '103.77354900751995'),
+('COM2', '1.2942873770160448', '103.77408113003413'),
+('E1', '1.298665658654501', '103.77089484858965'),
+('E2', '1.2991410356883892', '103.77124292773831'),
+('E3', '1.2994796804989956', '103.7717484199512'),
+('E4', '1.298442906221291', '103.77235813742136'),
+('E5', '1.2980443471605807', '103.77242327817042'),
+('E6', '1.2991931738467377', '103.77310499718023'),
+('E7', '1.2986265645498505', '103.77347383767992'),
+('E8', '1.2991712547294794', '103.77252767661138'),
+('KR MRT', '1.2934880202247114', '103.78466586406357'),
+('NUS IT', '1.2976006274635772', '103.77250292617565'),
+('SDE1', '1.2974539431341676', '103.77061556521483'),
+('SDE2', '1.297240320816493', '103.77111376236819'),
+('SDE3', '1.2983990816061384', '103.77035320669596'),
+('SDE4', '1.2968633731629249', '103.77029605806129'),
+('SOC', '1.2947968964383354', '103.7740892102336'),
+('TECHNO EDGE', '1.2978937496331489', '103.7716567726272'),
+('THE DECK', '1.2946490906227632', '103.77248180111519'),
+('VENTUS', '1.2953120878078712', '103.77019986829318');
