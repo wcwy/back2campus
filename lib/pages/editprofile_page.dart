@@ -4,7 +4,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:back2campus/utils/constants.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
 
 class EditprofilePage extends StatefulWidget {

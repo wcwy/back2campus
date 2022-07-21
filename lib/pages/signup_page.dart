@@ -1,7 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:supabase/supabase.dart';
-import 'package:back2campus/components/auth_state.dart';
 import 'package:back2campus/utils/constants.dart';
 
 class SignupPage extends StatefulWidget {
@@ -126,6 +124,8 @@ class _SignupPageState extends State<SignupPage> {
             child: Container(
               height: MediaQuery.of(context).size.height * 0.8,
               width: MediaQuery.of(context).size.width*0.8,
+              child: SingleChildScrollView(
+
               child: Column(
                 children: <Widget>[
                    const Padding(
@@ -159,7 +159,7 @@ class _SignupPageState extends State<SignupPage> {
                           hintText: 'A valid email',
                           hintStyle: const TextStyle(
                             color: Color(0xFFB3B1B1),
-                            fontSize: 18,
+                            fontSize: 11,
                           ),
                           errorText: _submitted ? _emailErrorText : null,
                           // Style when clicked
@@ -333,6 +333,7 @@ class _SignupPageState extends State<SignupPage> {
                     ),
                   ),
                 ],
+              ),
               ),
             ),
           ),

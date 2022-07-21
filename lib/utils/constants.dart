@@ -7,6 +7,8 @@ var chosenSource = "COM1";
 var chosenDestination = "COM2";
 var profilepicurl = "https://rlemxzljabcaylnhetcv.supabase.co/storage/v1/object/public/avatars/default.jpg";
 
+var routeselected; // storing route_id used for viewroute_page
+
 extension ShowSnackBar on BuildContext {
   void showSnackBar({
     required String message,

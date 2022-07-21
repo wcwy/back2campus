@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-//import 'package:back2campus/utils/map_coordinates.dart';
-import 'package:supabase/supabase.dart';
-import 'package:back2campus/components/auth_required_state.dart';
 import 'package:back2campus/utils/constants.dart';
 
 class RoutingPage extends StatefulWidget {
