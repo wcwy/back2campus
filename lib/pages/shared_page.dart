@@ -14,7 +14,7 @@ class _SharedPageState extends State<SharedPage> {
     We need to update its value with the route list retrieved from database through initState() and _retrieveRoutes(),
     so that the listing can be displayed in build().
    */
-  List routeList = [1,1,1,1,1]; // TO BE CHANGE TO [] AFTER _retrieveRoutes() IS IMPLEMENTED
+  List routeList = []; // TO BE CHANGE TO [] AFTER _retrieveRoutes() IS IMPLEMENTED
 
   /*
     There are a total of 3 functions in this class.
@@ -43,7 +43,7 @@ class _SharedPageState extends State<SharedPage> {
             These 2 variables are initialised to COM1 and COM2, but can be updated when user do their searches in routing_page.dart
             (The update take place at routing_page.dart line 66,67)
            */
-          title: Text("List of routes for $chosenSource => $chosenDestination"),
+          title: Text("$chosenSource => $chosenDestination"),
           automaticallyImplyLeading: false,
           centerTitle: true,
           /*
@@ -54,15 +54,21 @@ class _SharedPageState extends State<SharedPage> {
               Navigator.pushNamed(context, '/routing');
             },
             icon: const Icon(Icons.home),
-          )
+          ),
+          actions: [
+            IconButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/writeroute');
+              },
+              icon: const Icon(Icons.edit_outlined),
+            )
+          ],
       ),
       /* END OF APP BAR */
 
       body: SingleChildScrollView( // This SingleChildScrollView allow the page to be scrolled if the list is too long
         child: Container( // This Container wraps our list, the style can be set here
-          decoration: const BoxDecoration(
-              color: Colors.yellow // Setting background to yellow colour
-          ),
+          color: Colors.white70,
           child: Column(
             children: [
               /*
@@ -80,12 +86,65 @@ class _SharedPageState extends State<SharedPage> {
 
                   itemCount: routeList.length, // Set number of items needed to displayed in list view to the length of routeList
                   itemBuilder: (context, index){ // The index will start counting from 0 to itemCount, like a for(int i=0; i<itemCount; i++) loo[
-                    // TODO: Change the Text() below to display the routes found from the database, after completing _retrieveLayouts() function
-                    return Text("Hello $index");
+                    return InkWell(
+                      child: Container(
+                        height: 80,
+                        color: Colors.white70,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Text(
+                                routeList[index]["route_description"],
+                                style: const TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 18,
+                                ),
+                              ),
+                            ),
+
+
+                            Row(
+                              children: [
+                                const Padding(
+                                  padding: EdgeInsets.only(left: 16.0),
+                                  child: Text(
+                                      "Posted on: ",
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 14,
+
+                                      )
+                                  ),
+                                ),
+                                Text(
+                                    (routeList[index]["last_edited_time"]).substring(0,10),
+                                    style: const TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 14,
+
+                                    )
+                                )
+                              ],
+                            )
+                          ],
+                        )
+                      ),
+                      onTap: () {
+                        setState(() {
+                          routeselected = routeList[index]["route_id"];
+                        });
+                        Navigator.pushNamed(context, '/viewroute');
+                      },
+                    );;
                   },
                   separatorBuilder: (context, index){ // For every 2 items built, a separator will be built between them
-                    return Divider(
-                      color: Colors.blueGrey, // Here i build just a divider line
+                    return const Divider(
+                      color: Colors.black12, // Here i build just a divider line
+                      indent: 16,
+                      endIndent: 16,
                     );
                   }
               ),
@@ -139,21 +198,17 @@ class _SharedPageState extends State<SharedPage> {
       /*
         res.data is a list of dictionaries. Each row returned is a dictionary. In the dictionary, column name is the key, data stored is the value.
        */
-      print(res.data); // This will be printed in the RUN console.
-      print(res.data[0]); // If multiple rows are found, it will be stored in res.data[i]. Since location is unique, it's at [0]
-      print(res.data[0]['location_id']); // This will give the location_id field
-      print(res.data[0]['latitude']); // This will give the latitude field
       destination_id = res.data[0]['location_id']; // Set destination_id to the location id found
     }
 
-    var src = await supabase
+    res = await supabase
         .from('locations') // SELECT FROM TABLE NAME 'locations'
         .select('location_id, latitude') // TO FIND THE COLUMNS 'location_id' and 'latitude'
         .eq('location_name', chosenSource) // WHICH THE COLUMN 'location_name' MATCHES chosenDestination
         .execute(); // EXECUTE THIS QUERY
 
-    if(src.hasError){ // CHECK IF THERE IS ANY ERROR
-      context.showErrorSnackBar(message: src.error!.message); // PRINT ERROR MSG ON APP
+    if(res.hasError){ // CHECK IF THERE IS ANY ERROR
+      context.showErrorSnackBar(message: res.error!.message); // PRINT ERROR MSG ON APP
     }else {
       /*
         res.data is a list of dictionaries. Each row returned is a dictionary. In the dictionary, column name is the key, data stored is the value.
@@ -162,25 +217,31 @@ class _SharedPageState extends State<SharedPage> {
       print(res.data[0]); // If multiple rows are found, it will be stored in res.data[i]. Since location is unique, it's at [0]
       print(res.data[0]['location_id']); // This will give the location_id field
       print(src.data[0]['latitude']); // This will give the latitude field */
-      source_id = src.data[0]['location_id']; // Set destination_id to the location id found
+      source_id = res.data[0]['location_id']; // Set destination_id to the location id found
     }
 
-    src = await supabase
-        .from('routes') // SELECT FROM TABLE NAME 'locations'
-        .select('route_description') // TO FIND THE COLUMNS 'location_id' and 'latitude'
-        .eq("src_location_id", source_id) // WHICH THE COLUMN 'location_name' MATCHES chosenDestination
+    res = await supabase
+        .from('routes')
+        .select('''
+          route_id,
+          route_description,
+          source:src_location_id ( location_name ),
+          destination:end_location_id ( location_name ),
+          user_id,
+          last_edited_time
+        ''')
+        .eq("src_location_id", source_id)
         .eq("end_location_id", destination_id)
         .execute(); // EXECUTE THIS QUERY
 
-    if(src.hasError){ // CHECK IF THERE IS ANY ERROR
-      context.showErrorSnackBar(message: src.error!.message); // PRINT ERROR MSG ON APP
+    if(res.hasError){ // CHECK IF THERE IS ANY ERROR
+      context.showErrorSnackBar(message: res.error!.message); // PRINT ERROR MSG ON APP
     }else {
-      print(src.data[0]['route_description']);
+      setState(() {
+        print(res.data);
+        routeList = res.data;
+      });
     }
-
-    setState(() {
-      routeList = src.data;
-    });
   }
 }
 

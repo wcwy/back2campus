@@ -170,8 +170,8 @@ class _WriteroutePageState extends State<WriteroutePage> {
           if (res.hasError) {
             context.showErrorSnackBar(message: res.error!.message);
           } else {
-            context.showSnackBar(message: 'Successfully shared route!');
-            Navigator.pushNamed(context, '/routing');
+            context.showSnackBar(message: 'Successfully shared route!\n Loading for routes...');
+            Navigator.pushNamed(context, '/shared');
           }
         }
       }
