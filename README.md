@@ -26,14 +26,16 @@
   <p align="center">
     An NUS navigation mobile app built by Team GoBigorGoHome for Orbital Project.
     <br />
-    <a href="https://github.com/wcwy/back2campus/"><strong>Explore the docs »</strong></a>
+    <a href="https://docs.google.com/document/d/1WeLhIrJLJuMFxFD5EfLrcveSfMJsFNmGg3bSL-P0OK0/edit?usp=sharing"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://youtube.com/shorts/bE9oNFRL-_8">View Demo</a>
+    <a href="https://youtu.be/xBc0ZUUU7HM">View Demo</a>
+    ·
+    <a href="https://drive.google.com/file/d/1ZWfa7l-_yVpy_RATfUgTHBamOWHB4xQB/view?usp=sharing">View Poster</a>
+    ·
+    <a href="https://drive.google.com/file/d/1M6drdEACydES1Vo_DTdKn2r0wuRmmgan/view?usp=sharing">Download APK</a>
     ·
     <a href="https://github.com/wcwy/back2campus/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/wcwy/back2campus/issues">Request Feature</a>
   </p>
 </div>
 
@@ -70,8 +72,8 @@
 
 <div align="center">
   
-  <a href="https://youtube.com/shorts/bE9oNFRL-_8">
-    <img src="assets/images/demo.png" alt="Logo" width="1150" height="585">
+  <a href="https://youtu.be/xBc0ZUUU7HM">
+    <img src="assets/images/demo.png" alt="Logo" width="1000" height="508">
   </a>
   
 </div>
