@@ -57,6 +57,7 @@
       </ul>
     </li>
     <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#download-apk">Download APK</a></li>
 <!--
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
@@ -205,3 +206,8 @@ Project Link: [https://github.com/wcwy/back2campus](https://github.com/wcwy/back
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 -->
+
+## Download APK
+<a href="https://drive.google.com/file/d/1M6drdEACydES1Vo_DTdKn2r0wuRmmgan/view?usp=sharing">Download from Google Drive</a>
+<br>SHA256 - FBEBFF2B91407D8CEAADDC9AE73D7F213F768B652194C15B032BAE8D0E97914E
+<p align="right">(<a href="#top">back to top</a>)</p>
